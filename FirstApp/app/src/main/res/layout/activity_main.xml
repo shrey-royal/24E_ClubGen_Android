@@ -7,19 +7,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:layout_marginHorizontal="12dp"
+    android:background="#FAFAFA"
     tools:context=".MainActivity">
 
+    <!-- Welcome Text -->
     <TextView
+        android:id="@+id/tv_wlcm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:text="A String" />
+        android:text="Welcome Back!"
+        android:textSize="24sp"
+        android:textColor="#333333"
+        android:fontFamily="sans-serif-medium"
+        android:paddingBottom="16dp"
+        android:layout_gravity="center"/>
 
-    <Button
-        android:layout_width="wrap_content"
+    <!-- Email Input Field -->
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Click Me!" />
+        android:hint="Email Address"
+        android:padding="12dp"
+        android:backgroundTint="#CCCCCC"
+        android:inputType="textEmailAddress"
+        android:fontFamily="sans-serif"
+        android:textColor="#000000"
+        android:textColorHint="#888888"
+        android:paddingBottom="12dp"/>
+
+
+    <!-- Password Input Field -->
+    <EditText
+        android:id="@+id/edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:padding="12dp"
+        android:backgroundTint="#CCCCCC"
+        android:inputType="textPassword"
+        android:fontFamily="sans-serif"
+        android:textColor="#000000"
+        android:textColorHint="#888888"
+        android:paddingBottom="24dp"/>
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#2196F3"
+        android:fontFamily="sans-serif-medium"
+        android:padding="12dp"
+        android:layout_marginHorizontal="120dp"
+        android:text="Login"
+        android:textColor="#FFFFFF" />
+
 </LinearLayout>
