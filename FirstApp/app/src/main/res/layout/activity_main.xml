@@ -1,93 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:layout_marginHorizontal="12dp"
-    android:background="#FAFAFA"
+    android:padding="16dp"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
+    <!-- Profile Picture -->
     <ImageView
-        android:id="@+id/appLogo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:contentDescription="App Logo"
-        android:layout_gravity="center"
-        android:paddingBottom="24dp" />
+        android:id="@+id/iv_profile_pic"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:contentDescription="User Profile Pic" />
 
-
-    <!-- Welcome Text -->
+    <!-- Username -->
     <TextView
-        android:id="@+id/tv_wlcm"
+        android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome Back!"
-        android:textSize="24sp"
+        android:text="Dhyey Patel"
+        android:textSize="22sp"
         android:textColor="#333333"
-        android:fontFamily="sans-serif-medium"
-        android:paddingBottom="16dp"
-        android:layout_gravity="center" />
+        android:textStyle="bold"
+        android:layout_below="@id/iv_profile_pic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
-    <!-- Email Input Field -->
-    <EditText
-        android:id="@+id/edt_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email Address"
-        android:padding="12dp"
-        android:layout_marginVertical="12dp"
-        android:backgroundTint="#CCCCCC"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/rounded_edittext"
-        android:fontFamily="sans-serif"
-        android:textColor="#000000"
-        android:textColorHint="#888888"
-        android:paddingBottom="12dp" />
-
-
-    <!-- Password Input Field -->
-    <EditText
-        android:id="@+id/edt_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:padding="12dp"
-        android:layout_marginVertical="12dp"
-        android:backgroundTint="#CCCCCC"
-        android:inputType="textPassword"
-        android:background="@drawable/rounded_edittext"
-        android:fontFamily="sans-serif"
-        android:textColor="#000000"
-        android:textColorHint="#888888"
-        android:paddingBottom="24dp" />
-
-    <!-- Login Button -->
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#2196F3"
-        android:fontFamily="sans-serif-medium"
-        android:padding="12dp"
-        android:layout_marginHorizontal="120dp"
-        android:text="Login"
-        android:textColor="#FFFFFF" />
-
-    <!-- Forgot Password Text -->
+    <!-- Bio -->
     <TextView
-        android:id="@+id/tv_forgot_password"
+        android:id="@+id/tv_bio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password?"
-        android:textColor="#2196F3"
-        android:paddingTop="16dp"
+        android:text="Android Developer | Traveler | Food lover"
         android:textSize="14sp"
-        android:fontFamily="sans-serif"
-        android:layout_gravity="center" />
+        android:textColor="#777777"
+        android:layout_below="@id/tv_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp" />
 
-</LinearLayout>
+    <!-- Follow Button -->
+    <Button
+        android:id="@+id/btn_flw"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Follow"
+        android:layout_below="@id/tv_bio"
+        android:layout_alignStart="@id/tv_bio"
+        android:layout_marginTop="24dp" />
+
+    <!-- Edit Profile -->
+    <Button
+        android:id="@+id/btn_edt_profile"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_bio"
+        android:layout_alignEnd="@id/tv_bio"
+        android:layout_marginTop="24dp"
+        android:text="Edit Profile" />
+
+    <!-- Social Media Icons (Instagram, Twitter) -->
+    <LinearLayout
+        android:id="@+id/layout_social_media"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/btn_edt_profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" >
+
+        <!-- Instagram -->
+        <ImageView
+            android:id="@+id/ic_instagram"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/link"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Twitter -->
+        <ImageView
+            android:id="@+id/ic_twitter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/link"
+            android:layout_marginEnd="16dp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imgBtn_settings"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/settings"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="Settings"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
+
+
+
+
+</RelativeLayout>
