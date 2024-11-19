@@ -1,111 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/white"
     tools:context=".MainActivity">
 
-    <!-- Profile Picture -->
     <ImageView
-        android:id="@+id/iv_profile_pic"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/user"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:layout_alignParentTop="true"
+        android:id="@+id/bg_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:contentDescription="User Profile Pic" />
+        android:src="@drawable/img_2"
+        android:contentDescription="Minimal Dark Image" />
 
-    <!-- Username -->
+    <View
+        android:id="@+id/v_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
+
     <TextView
-        android:id="@+id/tv_username"
+        android:id="@+id/tv_centeredText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dhyey Patel"
-        android:textSize="22sp"
-        android:textColor="#333333"
-        android:textStyle="bold"
-        android:layout_below="@id/iv_profile_pic"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_gravity="center"
+        android:text="Hello World!"
+        android:textColor="#F3F3F3"
+        android:textSize="24sp"
+        android:padding="8dp"
+        android:background="@drawable/text_background"
+        android:elevation="4dp" />
 
-    <!-- Bio -->
-    <TextView
-        android:id="@+id/tv_bio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Android Developer | Traveler | Food lover"
-        android:textSize="14sp"
-        android:textColor="#777777"
-        android:layout_below="@id/tv_username"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp" />
-
-    <!-- Follow Button -->
     <Button
-        android:id="@+id/btn_flw"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="Follow"
-        android:layout_below="@id/tv_bio"
-        android:layout_alignStart="@id/tv_bio"
-        android:layout_marginTop="24dp" />
-
-    <!-- Edit Profile -->
-    <Button
-        android:id="@+id/btn_edt_profile"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_bio"
-        android:layout_alignEnd="@id/tv_bio"
-        android:layout_marginTop="24dp"
-        android:text="Edit Profile" />
-
-    <!-- Social Media Icons (Instagram, Twitter) -->
-    <LinearLayout
-        android:id="@+id/layout_social_media"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/btn_edt_profile"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" >
-
-        <!-- Instagram -->
-        <ImageView
-            android:id="@+id/ic_instagram"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/link"
-            android:layout_marginEnd="16dp" />
-
-        <!-- Twitter -->
-        <ImageView
-            android:id="@+id/ic_twitter"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/link"
-            android:layout_marginEnd="16dp" />
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/imgBtn_settings"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/settings"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:contentDescription="Settings"
-        android:background="@android:color/transparent"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="Click Me"
+        android:backgroundTint="#F3F3F3"
+        android:textColor="#000000" />
 
 
-
-
-</RelativeLayout>
+</FrameLayout>
