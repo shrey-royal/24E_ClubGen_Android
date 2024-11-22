@@ -1,84 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:columnCount="3"
+    android:rowCount="3"
     android:padding="16dp"
-    android:gravity="center"
+    android:background="#f5f5f5"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registration Form"
-        android:textColor="#000000"
-        android:gravity="center_horizontal"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textIsSelectable="false" />
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="center"
+        android:src="@drawable/img_1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="1">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="center"
+        android:src="@drawable/img_1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
 
-        <TableRow
-            android:layout_marginBottom="8dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name:"
-                android:padding="8dp" />
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="center"
+        android:src="@drawable/img_1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter your name"
-                android:inputType="text" />
-        </TableRow>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="center"
+        android:src="@drawable/img_1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
 
-        <TableRow
-            android:layout_marginBottom="8dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Eamil:"
-                android:padding="8dp" />
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="center"
+        android:src="@drawable/img_1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter your email"
-                android:inputType="textEmailAddress" />
-        </TableRow>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="center"
+        android:src="@drawable/img_1"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
 
-        <TableRow
-            android:layout_marginBottom="8dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password:"
-                android:padding="8dp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter your password"
-                android:inputType="textPassword" />
-        </TableRow>
 
-        <TableRow>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Submit"
-                android:layout_span="2"
-                android:gravity="center"
-                android:padding="8dp" />
-        </TableRow>
-    </TableLayout>
-</LinearLayout>
+</GridLayout>
