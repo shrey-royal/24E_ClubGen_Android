@@ -1,4 +1,4 @@
-package com.company.firstapp;
+package com.company.firstapp.widgets;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.company.firstapp.R;
 
 public class MainActivity extends AppCompatActivity {
     private EditText n1, n2;

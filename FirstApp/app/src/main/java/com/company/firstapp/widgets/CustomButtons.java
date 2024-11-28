@@ -1,8 +1,10 @@
-package com.company.firstapp;
+package com.company.firstapp.widgets;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.company.firstapp.R;
 
 public class CustomButtons extends AppCompatActivity {
 
