@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tglBtnLyt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".widgets.ToggleButtons">
+
+    <TextView
+        android:id="@+id/tv_tglLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable Dark Mode"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/tgl_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:checked="false" />
+
+
+</RelativeLayout>
