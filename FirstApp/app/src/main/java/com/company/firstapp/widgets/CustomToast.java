@@ -20,10 +20,18 @@ public class CustomToast extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_toast);
 
+//        findViewById(R.id.btn_showToast).setOnClickListener(view -> {
+//            // Toast.LENGTH_SHORT -> 3s
+//            // Toast.LENGTH_LONG -> 5s
+//            Toast.makeText(this, "Ayush is learning Android", Toast.LENGTH_SHORT).show();
+//        });
+
         findViewById(R.id.btn_showToast).setOnClickListener(view -> {
-            // Toast.LENGTH_SHORT -> 3s
-            // Toast.LENGTH_LONG -> 5s
-            Toast.makeText(this, "Ayush is learning Android", Toast.LENGTH_SHORT).show();
+            Custom_Toast.showCustomToast(
+                    this,
+                    "You pressed the funny button",
+                    R.drawable.bolt_24px
+            );
         });
     }
 }
