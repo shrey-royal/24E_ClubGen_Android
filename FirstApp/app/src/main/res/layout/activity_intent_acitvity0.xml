@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="intentss.IntentAcitvity_0">
+    tools:context=".intentss.IntentAcitvity_0">
 
     <EditText
         android:id="@+id/edt_text"

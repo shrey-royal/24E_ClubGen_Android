@@ -1,4 +1,4 @@
-package intentss;
+package com.company.firstapp.intentss;
 
 import android.os.Bundle;
 import android.util.Log;

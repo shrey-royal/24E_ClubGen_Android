@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/displayTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Submitted Information"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black" />
+
+    <!-- Name Display -->
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name: John Doe"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/black" />
+
+    <!-- Email Display -->
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email: john.doe@example.com"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/black" />
+
+    <!-- Phone Display -->
+    <TextView
+        android:id="@+id/phoneTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone: +1234567890"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/black" />
+
+    <!-- Address Display -->
+    <TextView
+        android:id="@+id/addressTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address: 123 Main St, Springfield"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/black" />
+
+    <!-- Gender Display -->
+    <TextView
+        android:id="@+id/genderLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black" />
+
+    <RadioGroup
+        android:id="@+id/genderRadioGroupDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:enabled="false"> <!-- Disable interaction -->
+
+        <RadioButton
+            android:id="@+id/radioMaleDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:textSize="14sp"
+            android:layout_marginEnd="16dp"
+            android:clickable="false"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioFemaleDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:textSize="14sp"
+            android:layout_marginEnd="16dp"
+            android:clickable="false" />
+
+        <RadioButton
+            android:id="@+id/radioOtherDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other"
+            android:textSize="14sp"
+            android:clickable="false" />
+    </RadioGroup>
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp" />
+
+
+</LinearLayout>
