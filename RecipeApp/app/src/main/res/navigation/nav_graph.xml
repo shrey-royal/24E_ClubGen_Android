@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
@@ -6,8 +5,9 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.company.recipeapp.HomeFragment"
-        android:label="Home">
+        android:name="com.company.recipeapp.ui.fragments.HomeFragment"
+        android:label="Home"
+        android:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_details"
             app:destination="@id/detailsFragment" />
@@ -15,16 +15,19 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.company.recipeapp.DetailsFragment"
-        android:label="Details" />
+        android:name="com.company.recipeapp.ui.fragments.DetailsFragment"
+        android:label="Details"
+        android:layout="@layout/fragment_details" />
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.company.recipeapp.FavoritesFragment"
-        android:label="Favorites" />
+        android:name="com.company.recipeapp.ui.fragments.FavoritesFragment"
+        android:label="Favorites"
+        android:layout="@layout/fragment_favorites" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.company.recipeapp.SettingsFragment"
-        android:label="Settings" />
+        android:name="com.company.recipeapp.ui.fragments.SettingsFragment"
+        android:label="Settings"
+        android:layout="@layout/fragment_settings" />
 </navigation>
