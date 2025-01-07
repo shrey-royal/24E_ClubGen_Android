@@ -15,7 +15,7 @@
         android:theme="@style/Theme.FirstApp"
         tools:targetApi="31">
         <activity
-            android:name=".menuss.Option_Menu_1"
+            android:name=".menuss.Context_Menu_1"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +24,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".menuss.Option_Menu_1"
+            android:exported="true"/>
+        <activity
             android:name=".fragmentssss.Fragment_1"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".fragmentssss.Fragment_0"
             android:exported="false" />
