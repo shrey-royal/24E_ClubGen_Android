@@ -1,0 +1,16 @@
+*.iml
+.gradle
+.idea/
+local.properties
+.gitignore
+build.gradle
+gradle.properties
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
+*/app/src/main/res/mipmap/*
+*/app/src/main/res/values/*
+*/app/src/main/res/values-night/*
+*/app/src/main/res/xml/*
+gradle/libs.versions.toml
