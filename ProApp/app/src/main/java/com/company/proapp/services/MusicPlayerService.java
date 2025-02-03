@@ -9,76 +9,79 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.IBinder;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.company.proapp.R;
 
 public class MusicPlayerService extends Service {
-    private static final String CHANNEL_ID = "music_player_channel";
-    private static final int NOTIFICATION_ID = 1;
+
     private MediaPlayer mediaPlayer;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        try {
-            mediaPlayer = MediaPlayer.create(this, R.raw.music_file);
-            if(mediaPlayer == null) {
-                stopSelf();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            stopSelf();
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Music Channel";
+            String description = "Channel for music player notifications";
+            int importance = NotificationManager.IMPORTANCE_LOW;
+            NotificationChannel channel = new NotificationChannel("MUSIC_CHANNEL", name, importance);
+            channel.setDescription(description);
 
-        // Create Notification Channel
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Music Player",
-                    NotificationManager.IMPORTANCE_LOW
-            );
+            // Register the channel with the system
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+
+        // Initialize the MediaPlayer and other necessary components
+        mediaPlayer = MediaPlayer.create(this, R.raw.music_file);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+        // Start playing music
+        if (mediaPlayer != null) {
+            mediaPlayer.setLooping(true);  // Set it to loop if needed
             mediaPlayer.start();
         }
-        //Create a simple notification for the foreground service
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+
+        // Create a notification for the foreground service
+        Notification notification = new NotificationCompat.Builder(this, "MUSIC_CHANNEL")
                 .setContentTitle("Music Player")
-                .setContentText("Playing Music...")
+                .setContentText("Playing Music")
                 .setSmallIcon(android.R.drawable.ic_media_play)
                 .build();
 
-        startForeground(NOTIFICATION_ID, notification);
+        // Start the service as a foreground service with the notification
+        startForeground(1, notification);
 
-        return START_STICKY;
-    }
+        // Return sticky to make sure the service restarts if it's killed by the system
+//        return START_STICKY;
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+        // Return START_NOT_STICKY so the service won't restart if it is killed by the system
+        return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (mediaPlayer != null) {
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.stop();
-            }
+            mediaPlayer.stop();
             mediaPlayer.release();
-            mediaPlayer = null;
         }
-        stopForeground(true);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
     }
 }

@@ -46,6 +46,7 @@ dependencies {
     implementation libs.camera.camera2
     implementation libs.camera.lifecycle
     implementation libs.camera.view
+    implementation "androidx.work:work-runtime:2.5.0"
 
     implementation libs.glide
     annotationProcessor libs.compiler

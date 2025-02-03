@@ -1,46 +1,47 @@
 package com.company.proapp.services;
 
+import android.app.Notification;
+import android.app.Service;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.content.pm.ServiceInfo;
+import android.os.Build;
+import android.os.IBinder;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.ServiceCompat;
 
-import com.company.proapp.R;
-
-public class CameraService extends AppCompatActivity {
-    Button btnOpen;
-    ImageView imageView;
+public class CameraService extends Service {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
-        imageView = findViewById(R.id.image_view);
-        btnOpen = findViewById(R.id.bt_open);
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        startForeground();
+        return START_STICKY;
+    }
 
-        if (ContextCompat.checkSelfPermission(this, "android.permission.CAMERA") != 0) {
-            ActivityCompat.requestPermissions(this, new String[]{"android.permission.CAMERA"}, 100);
+    private void startForeground() {
+        // Create your notification and start the service in the foreground
+        Notification notification = new NotificationCompat.Builder(this, "CHANNEL_ID")
+                .setContentTitle("Camera Service Running")
+                .setContentText("Camera is active in the background")
+                .setOngoing(true)
+                .build();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            int type = ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA;
+            ServiceCompat.startForeground(this, 100, notification, type);
         }
-        this.btnOpen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent("android.media.action.IMAGE_CAPTURE"), 100);
-            }
-        });
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            imageView.setImageBitmap((Bitmap) data.getExtras().get("data"));
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        stopSelf();
     }
 }
