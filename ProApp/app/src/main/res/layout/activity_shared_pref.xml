@@ -35,4 +35,10 @@
         android:layout_height="wrap_content"
         android:text="View Data" />
 
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove Data" />
+
 </LinearLayout>
