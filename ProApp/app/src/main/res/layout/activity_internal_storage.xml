@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".storage.InternalStorage">
+
+    <EditText
+        android:id="@+id/editTextFileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Filename"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/editTextFileContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter File Content"
+        android:inputType="textMultiLine"
+        android:minLines="5"/>
+
+    <Button
+        android:id="@+id/btn_f_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save File"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btn_f_read"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read File" />
+
+
+</LinearLayout>

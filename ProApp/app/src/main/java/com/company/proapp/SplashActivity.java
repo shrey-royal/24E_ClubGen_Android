@@ -10,6 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.company.proapp.storage.InternalStorage;
 import com.company.proapp.storage.SharedPref;
 
 @SuppressLint("CustomSplashScreen")
@@ -28,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
                 .into(splashGif);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, SharedPref.class);
+            Intent intent = new Intent(SplashActivity.this, InternalStorage.class);
             startActivity(intent);
             finish();
         }, 5000);
