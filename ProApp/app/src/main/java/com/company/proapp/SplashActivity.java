@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
                 .into(splashGif);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, ExternalStorage.class);
+            Intent intent = new Intent(SplashActivity.this, CustomListView.class);
             startActivity(intent);
             finish();
         }, 5000);
