@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    android:background="@android:color/white"
+    tools:context=".controller.AddNoteActivity">
+
+    <!-- Title Input -->
+    <EditText
+        android:id="@+id/edt_inputTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:textColor="#333333"
+        android:textColorHint="#888888"
+        android:padding="12dp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginBottom="16dp"
+        android:importantForAccessibility="yes"
+        android:contentDescription="Enter Title" />
+
+    <!-- Content Input (Multiline) -->
+    <EditText
+        android:id="@+id/edt_inputContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Content"
+        android:textColor="#333333"
+        android:textColorHint="#888888"
+        android:padding="12dp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginBottom="16dp"
+        android:inputType="textMultiLine|textCapSentences"
+        android:minHeight="150dp"
+        android:scrollbars="vertical"
+        android:importantForAccessibility="yes"
+        android:contentDescription="Enter Content" />
+
+    <!-- Save Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Note"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorPrimary"
+        android:cornerRadius="8dp"
+        app:icon="@drawable/ic_save" />
+
+</LinearLayout>

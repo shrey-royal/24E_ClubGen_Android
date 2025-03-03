@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:layout_gravity="center_horizontal">
+
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/noteTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:paddingBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginBottom="4dp"
+        android:lines="1" />
+
+    <!-- Description TextView (Multiline) -->
+    <TextView
+        android:id="@+id/noteContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:lineSpacingExtra="4dp"
+        android:ellipsize="none"
+        android:maxLines="5"
+        android:minLines="1"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="4dp"
+        android:paddingBottom="8dp"
+        android:scrollHorizontally="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>
