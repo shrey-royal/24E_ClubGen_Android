@@ -51,7 +51,6 @@
         android:layout_marginBottom="24dp"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/colorPrimary"
-        android:cornerRadius="8dp"
         app:icon="@drawable/ic_save" />
 
 </LinearLayout>
