@@ -1,6 +1,7 @@
 package com.royal.todo.controller;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,8 +42,10 @@ public class AddNoteActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Note note) {
                 //ISSUE
-                Toast.makeText(AddNoteActivity.this, "Note added!", Toast.LENGTH_SHORT).show();
-                finish();
+                new android.os.Handler().postDelayed(() -> {
+                    Toast.makeText(AddNoteActivity.this, "Note added!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }, 500);
             }
 
             @Override

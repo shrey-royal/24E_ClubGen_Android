@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.royal.todo" />
+                  <option name="mobileSdkAppId" value="1:550430329395:android:3f02190ad66962fae27146" />
+                  <option name="projectId" value="todo-f93e8" />
+                  <option name="projectNumber" value="550430329395" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

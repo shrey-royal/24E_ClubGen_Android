@@ -31,7 +31,9 @@ public class NoteController {
         Note note = new Note(id, title, content);
 
         db.collection(COLLECTION_NAME).document(id).set(note)
-                .addOnSuccessListener(aVoid -> callBack.onSuccess(note))
+                .addOnSuccessListener(aVoid -> {
+                    callBack.onSuccess(note);
+                })
                 .addOnFailureListener(callBack::onFailure);
     }
 
