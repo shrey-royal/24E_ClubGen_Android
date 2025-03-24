@@ -32,22 +32,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.view_recycler);
         addNoteBtn = findViewById(R.id.btn_add_note);
         noteList = new ArrayList<>();
-        adapter = new NotesAdapter(noteList);
+        adapter = new NotesAdapter(noteList, note -> {
+            Toast.makeText(this, "Clicked on: " + note.getTitle(), Toast.LENGTH_SHORT).show();
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
         loadNotes();
-
-        adapter.setOnItemClickListener(note -> {
-            Toast.makeText(this, "Clicked: " + note.getTitle(), Toast.LENGTH_SHORT).show();
-
-//            Intent intent = new Intent(MainActivity.this, EditNoteActivity.class);
-//            intent.putExtra("noteId", note.getId());
-//            intent.putExtra("noteTitle", note.getTitle());
-//            intent.putExtra("noteContent", note.getContent());
-//            startActivity(intent);
-        });
 
         addNoteBtn.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, AddNoteActivity.class));

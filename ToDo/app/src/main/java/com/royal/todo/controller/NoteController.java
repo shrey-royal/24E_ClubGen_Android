@@ -37,6 +37,22 @@ public class NoteController {
                 .addOnFailureListener(callBack::onFailure);
     }
 
+    public void updateNote(String noteId, String newTitle, String newContent, NoteCallBack callBack) {
+        db.collection(COLLECTION_NAME).document(noteId)
+                .update("title", newTitle, "content", newContent)
+                .addOnSuccessListener(aVoid ->
+                    callBack.onSuccess(new Note(noteId, newTitle, newContent))
+                )
+                .addOnFailureListener(callBack::onFailure);
+    }
+
+    public void deleteNote(String noteId, DeleteCallBack callBack) {
+        db.collection(COLLECTION_NAME).document(noteId)
+                .delete()
+                .addOnSuccessListener(aVoid -> callBack.onSuccess())
+                .addOnFailureListener(callBack::onFailure);
+    }
+
     // Callback interfaces for Firebase operations
     public interface NotesCallBack {
         void onSuccess(List<Note> notes);
@@ -47,4 +63,10 @@ public class NoteController {
         void onSuccess(Note note);
         void onFailure(Exception e);
     }
+
+    public interface DeleteCallBack {
+        void onSuccess();
+        void onFailure(Exception e);
+    }
+
 }
