@@ -40,4 +40,9 @@ dependencies {
     androidTestImplementation libs.espresso.core
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.firestore
+    implementation libs.google.firebase.auth
+    implementation libs.credentials
+    implementation libs.credentials.play.services.auth
+    implementation libs.glide
+    implementation libs.googleid
 }
