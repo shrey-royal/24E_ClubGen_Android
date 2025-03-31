@@ -1,22 +1,35 @@
 package com.royal.todo;
 
-import android.credentials.GetCredentialRequest;
+import android.credentials.GetCredentialException;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CancellationSignal;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.credentials.CredentialManager;
 
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException;
 import com.google.firebase.auth.FirebaseAuth;
+
+import androidx.credentials.Credential;
+import androidx.credentials.CredentialManager;
+import androidx.credentials.CredentialManagerCallback;
+import androidx.credentials.CustomCredential;
+import androidx.credentials.GetCredentialRequest;
+import androidx.credentials.GetCredentialResponse;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RegisterActivity extends AppCompatActivity {
-    private static final int RC_SIGN_IN = 100;
+    private static final String TAG = "GoogleSignIn";
     private FirebaseAuth mAuth;
     private CredentialManager credentialManager;
     private ExecutorService executorService;
@@ -55,11 +68,46 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void signIn() {
         GetCredentialRequest req = new GetCredentialRequest.Builder()
-                req.addCredentialOption(new GetGoogleIdOption.Builder()
-                        .setFilterByAuthorizedAccounts(false)
+                .addCredentialOption(new GetGoogleIdOption.Builder()
+                        .setFilterByAuthorizedAccounts(true)
                         .setServerClientId(getString(R.string.gcm_defaultSenderId))
                         .build())
                 .build();
+
+        executorService.execute(() -> {
+            try {
+                credentialManager.getCredentialAsync(
+                        this,
+                        req,
+                        null,
+                        null,
+                        new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
+                            @Override
+                            public void onResult(GetCredentialResponse res) {
+                                handleSignInResult(res);
+                            }
+
+                            @Override
+                            public void onError(@NonNull GetCredentialException e) {
+                                Log.e(TAG, "Sign in failed: " + e.getMessage());
+                                Toast.makeText(RegisterActivity.this, "Sign in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                });
+            } catch (Exception e) {
+                Log.e(TAG, "Error occurred while getting credentials: " + e.getMessage());
+                Toast.makeText(RegisterActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void handleSignInResult(GetCredentialResponse res) {
+        Credential credential = res.getCredential();
+
+        if (credential instanceof CustomCredential) {
+            if (GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL.equals(credential.getType())) {
+                GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(((CustomCredential) credential).getData());
+            }
+        }
     }
 
 
