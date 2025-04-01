@@ -19,29 +19,25 @@
         android:layout_height="wrap_content"
         android:text="User Name"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:marginTop="10dp"/>
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
-        android:textSize="16sp"
-        android:marginTop="5dp"/>
+        android:textSize="16sp"/>
 
     <Button
         android:id="@+id/btnGoogleSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in with Google"
-        android:marginTop="20dp"/>
+        android:text="Sign in with Google"/>
 
     <Button
         android:id="@+id/btnGoogleSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Out"
-        android:visibility="gone"
-        android:marginTop="10dp"/>
+        android:visibility="gone"/>
 </LinearLayout>
