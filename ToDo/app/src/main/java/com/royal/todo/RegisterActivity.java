@@ -2,7 +2,6 @@ package com.royal.todo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CancellationSignal;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,35 +9,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
-import com.google.firebase.Firebase;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import androidx.credentials.Credential;
-import androidx.credentials.CredentialManager;
-import androidx.credentials.CredentialManagerCallback;
-import androidx.credentials.CustomCredential;
-import androidx.credentials.GetCredentialRequest;
-import androidx.credentials.GetCredentialResponse;
-import androidx.credentials.exceptions.GetCredentialException;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "GoogleSignIn";
+    private static final int RC_SIGN_IN = 9001; // Request code for Google Sign-In
+
     private FirebaseAuth mAuth;
-    private CredentialManager credentialManager;
-    private ExecutorService executorService;
+    private GoogleSignInClient mGoogleSignInClient;
     private Button btnGoogleSignIn, btnGoogleSignOut;
     private TextView userName, userEmail;
     private ImageView userImage;
@@ -48,11 +39,17 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        credentialManager = CredentialManager.create(this);
-        executorService = Executors.newSingleThreadExecutor();
 
-        // Initialize UI Elements
+        // Initialize Google Sign-In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id)) // Web client ID from Firebase
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Initialize UI elements
         btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
         btnGoogleSignOut = findViewById(R.id.btnGoogleSignOut);
         userName = findViewById(R.id.userName);
@@ -66,62 +63,69 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-        GetCredentialRequest req = new GetCredentialRequest.Builder()
-                .addCredentialOption(new GetGoogleIdOption.Builder()
-                        .setFilterByAuthorizedAccounts(false)
-                        .setServerClientId(getString(R.string.default_web_client_id))
-                        .build())
-                .build();
-
-        credentialManager.getCredentialAsync(
-                this, req, null, executorService,
-                new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
-                    @Override
-                    public void onResult(GetCredentialResponse res) {
-                        Log.d("TAG", "res");
-                        handleSignInResult(res);
-                    }
-
-                    @Override
-                    public void onError(@NonNull GetCredentialException e) {
-                        Log.e(TAG, "Sign in failed: " + e.getMessage());
-                    }
-                });
+        // Start the sign-in flow
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void handleSignInResult(GetCredentialResponse res) {
-        Credential credential = res.getCredential();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        if (credential instanceof CustomCredential) {
-            if (GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL.equals(credential.getType())) {
-                GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(((CustomCredential) credential).getData());
-
-                String idToken = googleIdTokenCredential.getIdToken();
-                Log.d("TOKEN", idToken);
-                AuthCredential authCredential = GoogleAuthProvider.getCredential(idToken, null);
-                mAuth.signInWithCredential(authCredential)
-                        .addOnCompleteListener(this, task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(this, "Sign-in successful!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Log.e(TAG, "Sign-in failed!");
-                            }
-                        });
+        // Result returned from launching the intent from GoogleSignInClient
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign-In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign-In failed, update UI appropriately
+                Log.w(TAG, "Google sign in failed", e);
+                Toast.makeText(this, "Sign-in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign-in success
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user);
+                        Toast.makeText(this, "Sign-in successful!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // If sign-in fails, display a message to the user
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        updateUI(null);
+                    }
+                });
+    }
+
     private void signOut() {
+        // Firebase sign out
         mAuth.signOut();
-        updateUI(null);
-        Toast.makeText(this, "Signed Out!", Toast.LENGTH_SHORT).show();
+
+        // Google sign-out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
+            updateUI(null);
+            Toast.makeText(this, "Signed Out!", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+            // Update UI with user details
             userName.setText(user.getDisplayName());
             userEmail.setText(user.getEmail());
-            Glide.with(this).load(user.getPhotoUrl()).into(userImage);
+            if (user.getPhotoUrl() != null) {
+                Glide.with(this).load(user.getPhotoUrl()).into(userImage);
+            }
             btnGoogleSignIn.setVisibility(View.GONE);
             btnGoogleSignOut.setVisibility(View.VISIBLE);
         } else {
