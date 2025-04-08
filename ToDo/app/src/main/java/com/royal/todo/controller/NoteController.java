@@ -1,5 +1,7 @@
 package com.royal.todo.controller;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.royal.todo.model.Note;
 
@@ -14,7 +16,16 @@ public class NoteController {
     }
 
     public void fetchNote(NotesCallBack notesCallBack) {
-        db.collection(COLLECTION_NAME).addSnapshotListener((value, error) -> {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            notesCallBack.onFailure(new Exception("User not authenticated"));
+            return;
+        }
+        String uid = user.getUid();
+
+        db.collection(COLLECTION_NAME).document(uid)
+                .collection("userNotes")
+                .addSnapshotListener((value, error) -> {
             if (error != null) {
                 notesCallBack.onFailure(error);
                 return;
@@ -27,13 +38,20 @@ public class NoteController {
     }
 
     public void addNote(String title, String content, NoteCallBack callBack) {
-        String id = db.collection(COLLECTION_NAME).document().getId();
-        Note note = new Note(id, title, content);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            callBack.onFailure(new Exception("User not authenticated"));
+            return;
+        }
+        String uid = user.getUid();
+        String noteId = db.collection(COLLECTION_NAME).document(uid)
+                .collection("userNotes").document().getId();
+        Note note = new Note(noteId, title, content);
 
-        db.collection(COLLECTION_NAME).document(id).set(note)
-                .addOnSuccessListener(aVoid -> {
-                    callBack.onSuccess(note);
-                })
+        db.collection(COLLECTION_NAME).document(uid)
+                .collection("userNotes").document(noteId)
+                .set(note)
+                .addOnSuccessListener(aVoid -> callBack.onSuccess(note))
                 .addOnFailureListener(callBack::onFailure);
     }
 
