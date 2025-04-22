@@ -88,9 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            if (allGranted) {
-                startWorkerAndObserve();
-            } else {
+            if (!allGranted) {
                 locationTextView.setText("Permission denied 🙁");
             }
         }

@@ -38,6 +38,7 @@ public class WeatherWorker extends ListenableWorker {
                             Data data = new Data.Builder()
                                     .putString("result_key", weatherData)
                                     .build();
+                            showNotification("Weather_data",weatherData);
                             future.set(Result.success(data));
                         } else {
                             future.set(Result.failure());
