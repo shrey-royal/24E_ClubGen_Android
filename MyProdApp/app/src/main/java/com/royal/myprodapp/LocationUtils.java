@@ -15,6 +15,7 @@ public class LocationUtils {
 
     @SuppressLint("MissingPermission")
     public static void getCurrentLocation(Context context, LocationCallback callback) {
+        Log.d("WeatherApp","getcurrentlocation of locationutils called ...");
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
 
         fusedLocationProviderClient.getLastLocation()

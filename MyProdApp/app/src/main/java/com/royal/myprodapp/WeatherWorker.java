@@ -1,36 +1,55 @@
 package com.royal.myprodapp;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.work.Data;
 import androidx.work.ListenableWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+import androidx.work.impl.utils.futures.SettableFuture;
 
-public class WeatherWorker extends Worker {
+import com.google.common.util.concurrent.ListenableFuture;
+
+public class WeatherWorker extends ListenableWorker {
+    @SuppressLint("RestrictedApi")
+    private SettableFuture<Result> future;
+    @SuppressLint("RestrictedApi")
     public WeatherWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
+        future = SettableFuture.create();
     }
 
-    @NonNull
+    @SuppressLint("RestrictedApi")
     @Override
-    public ListenableWorker.Result doWork() {
+    public ListenableFuture<Result> startWork() {
+        Log.d("WeatherApp","Startwork of worker called ...");
         LocationUtils.getCurrentLocation(getApplicationContext(), location -> {
             if (location != null) {
-                String weatherData = WeatherRepository.getWeather(location.getLatitude(), location.getLongitude());
-                if (weatherData != null) {
-                    showNotification("Weather Update", weatherData);
-                }
+                WeatherRepository.getWeatherAsync(location.getLatitude(), location.getLongitude(), new WeatherRepository.WeatherCallback() {
+                    @Override
+                    public void onResult(String weatherData) {
+                        if (weatherData != null) {
+                            Data data = new Data.Builder()
+                                    .putString("result_key", weatherData)
+                                    .build();
+                            future.set(Result.success(data));
+                        } else {
+                            future.set(Result.failure());
+                        }
+                    }
+                });
+            } else {
+                future.set(Result.failure());
             }
         });
-        return ListenableWorker.Result.success();
+
+        return future;
     }
 
     private void showNotification(String title, String content) {
