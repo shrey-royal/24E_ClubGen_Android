@@ -12,14 +12,17 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.IOException;
+
 public class LocationUtils {
     public interface LocationCallbackInterface {
-        void onLocationReceived(Location location);
+        void onLocationReceived(Location location) throws IOException;
     }
 
     @SuppressLint("MissingPermission")
     public static void getCurrentLocation(Context context, LocationCallbackInterface callback) {
         Log.d("WeatherApp", "getCurrentLocation of LocationUtils called ...");
+        Log.d("WeatherApp", "getCurrentLocation called on thread id : " + Thread.currentThread().getId());
 
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
 
@@ -38,7 +41,11 @@ public class LocationUtils {
                 }
                 Location location = locationResult.getLastLocation();
                 if (location != null) {
-                    callback.onLocationReceived(location);
+                    try {
+                        callback.onLocationReceived(location);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 } else {
                     Log.e("LocationUtils", "Location is null");
                 }
