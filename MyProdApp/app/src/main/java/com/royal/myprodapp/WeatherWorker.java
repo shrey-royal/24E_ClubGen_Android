@@ -16,6 +16,9 @@ import androidx.work.impl.utils.futures.SettableFuture;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class WeatherWorker extends ListenableWorker {
     @SuppressLint("RestrictedApi")
     private SettableFuture<Result> future;
@@ -38,7 +41,7 @@ public class WeatherWorker extends ListenableWorker {
                             Data data = new Data.Builder()
                                     .putString("result_key", weatherData)
                                     .build();
-                            showNotification("Weather_data",weatherData);
+                            showNotification(weatherData);
                             future.set(Result.success(data));
                         } else {
                             future.set(Result.failure());
@@ -53,16 +56,26 @@ public class WeatherWorker extends ListenableWorker {
         return future;
     }
 
-    private void showNotification(String title, String content) {
+    private void showNotification(String weatherData) {
         String channelId = "weather_channel";
+        String temp = "failed to fetch temp!";
+        String city = "failed to fetch city!";
         NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationChannel channel = new NotificationChannel(channelId, "Weather Updates", NotificationManager.IMPORTANCE_DEFAULT);
         manager.createNotificationChannel(channel);
+        try {
+            JSONObject jsonObject = new JSONObject(weatherData);
+            temp= jsonObject.getJSONObject("main").getString("temp");
+            city = jsonObject.getString("name");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
-                .setContentTitle(title)
-                .setContentText(content.length() > 60 ? content.substring(0, 60) + "..." : content)
+                .setContentTitle("Weather Update")
+                .setContentText("Currently in " + city + ", Temp is " + temp)
                 .setSmallIcon(android.R.drawable.ic_menu_compass)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 

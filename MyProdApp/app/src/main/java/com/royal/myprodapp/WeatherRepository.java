@@ -20,7 +20,7 @@ public class WeatherRepository {
 
     public static void getWeatherAsync(double lat, double lon, WeatherCallback callback) {
         Log.d("WeatherApp","Getweatherasync called ...");
-        String url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=f8f21f53baf1d62d425f5e190c577346";
+        String url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=f8f21f53baf1d62d425f5e190c577346&units=metric";
 
         Request request = new Request.Builder().url(url).build();
 
