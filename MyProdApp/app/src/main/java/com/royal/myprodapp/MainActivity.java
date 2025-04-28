@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 public class MainActivity extends AppCompatActivity {
@@ -47,15 +49,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        locationTextView = findViewById(R.id.locationTextView);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().
+                    permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
+        locationTextView = findViewById(R.id.locationTextView);
+        Log.d("WeatherApp","MainAcitivity thread id : "+Thread.currentThread().getId());
         requestLocationPermission();
         startWorkerAndObserve();
+        startWorkerAndObserve();
+//        startWorkerAndObserve();
     }
 
     private void startWorkerAndObserve() {
@@ -67,11 +76,13 @@ public class MainActivity extends AppCompatActivity {
                 .observe(this, workInfo -> {
                     if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
                         String result = workInfo.getOutputData().getString("result_key");
-                        locationTextView.setText(result);
+                        locationTextView.append(result+"\n\n");
                     } else if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
-                        locationTextView.setText("Worker failed 😓");
+                        locationTextView.append("Worker failed 😓"+"\n\n");
                     }
                 });
+
+        Log.d("WeatherApp","Reached end of startWorkerAndObserve method");
     }
 
     @Override
