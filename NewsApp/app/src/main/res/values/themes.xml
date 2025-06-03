@@ -1,26 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.NewsApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand colors -->
+        <!-- Primary Colors -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorPrimaryContainer">@color/primaryVariant</item>
 
-        <!-- Background colors -->
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+        <item name="colorSecondaryContainer">@color/secondaryVariant</item>
+
+        <!-- Background / Surface -->
         <item name="android:colorBackground">@color/background</item>
         <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/textPrimary</item>
 
-        <!-- Text colors -->
-        <item name="android:textColorPrimary">@color/textPrimary</item>
-        <item name="android:textColorSecondary">@color/textSecondary</item>
-
-        <!-- Error -->
-        <item name="colorError">@color/error</item>
-
-        <!-- Status bar / Navigation bar -->
-        <item name="android:statusBarColor">@color/primary</item>
-        <item name="android:navigationBarColor">@color/background</item>
-
-        <!-- Tooling support -->
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <!-- Status Bar / Navigation -->
+        <item name="android:statusBarColor">@color/primaryDark</item>
     </style>
 
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />

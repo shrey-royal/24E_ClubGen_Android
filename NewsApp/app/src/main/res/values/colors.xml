@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand Colors -->
-    <color name="primary">#6200EE</color>       <!-- Purple -->
-    <color name="secondary">#03DAC5</color>     <!-- Teal -->
+    <!-- Primary Theme -->
+    <color name="primaryDark">#03045E</color>
+    <color name="primary">#023E8A</color>
+    <color name="primaryVariant">#0077B6</color>
+    <color name="secondary">#0096C7</color>
+    <color name="secondaryVariant">#00B4D8</color>
 
-    <!-- Background & Surface -->
-    <color name="background">#FFFFFF</color>
-    <color name="surface">#F5F5F5</color>
+    <!-- Background / Surface -->
+    <color name="background">#CAF0F8</color>
+    <color name="surface">#ADE8F4</color>
 
-    <!-- Text -->
-    <color name="textPrimary">#212121</color>
-    <color name="textSecondary">#757575</color>
+    <!-- Accent / Ripple -->
+    <color name="accent">#48CAE4</color>
 
-    <!-- Error -->
-    <color name="error">#B00020</color>
+    <!-- Text Colors -->
+    <color name="textPrimary">#03045E</color>
+    <color name="textSecondary">#0077B6</color>
 </resources>
