@@ -5,12 +5,17 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.navigation.NavigationView;
 import com.royal.newsapp.adapter.NewsAdapter;
 import com.royal.newsapp.model.Article;
 import com.royal.newsapp.model.NewsResponse;
@@ -32,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private final String[] categories = {"Top", "Business", "Technology", "Health", "Sports", "Science"};
     private ChipGroup chipGroup;
     private ProgressBar progressBar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolbar;
 
     private static final String API_KEY = "b781229af6f841669e35fa7251a218bc";
 
@@ -42,7 +50,35 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         chipGroup = findViewById(R.id.chipGroup);
-        progressBar = findViewById(R.id.progressBar); // Make sure you have this in layout
+        progressBar = findViewById(R.id.progressBar);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        // Setup Drawer Toggle (hamburger icon)
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        );
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        // Handle Navigation item clicks
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                Toast.makeText(MainActivity.this, "Home selected", Toast.LENGTH_SHORT).show();
+            } else if (id == R.id.nav_settings) {
+                Toast.makeText(MainActivity.this, "Settings selected", Toast.LENGTH_SHORT).show();
+            }
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
 
         setupCategoryChips();
         setupRecyclerView();
@@ -116,4 +152,5 @@ public class MainActivity extends AppCompatActivity {
         }
         recyclerView.setVisibility(isLoading ? View.GONE : View.VISIBLE);
     }
+
 }
